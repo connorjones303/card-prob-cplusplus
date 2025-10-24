@@ -3,52 +3,58 @@
 #include <iostream>
 using namespace std;
 
+Hand::Hand(int startSize, string label)
+{
+  cards[label] = startSize;
+  size = startSize;
+}
+
+int Hand::GetSize()
+{
+  return size;
+}
 void Hand::PrintHand()
 {
   cout << "PRINTING HAND: " << label << endl;
-  for (int i = 0; i < sizeof(cards);)
+  for (auto &elem : cards)
   {
-    cout << "label: " << cards[i].label << " | count: " << cards[i].count << endl;
+    cout << "label: " << elem.first << " | count: " << elem.second << endl;
   }
 }
-vector<Card> Hand::AddCard(int count, string label) // TODO: how will we handle adding a card that doesn't exist yet in deck?
+void Hand::AddCard(int count, string label) // TODO: how will we handle adding a card that doesn't exist yet in deck?
 {
-  bool exists = false;
-  for (int i = 0; i < sizeof(cards); i++)
+  unordered_map<string, int>::iterator card = cards.find(label);
+  if (card != cards.end())
   {
-    if (cards[i].label == label)
-    {
-      cards[i].count += count;
-      exists = true;
-    }
+    cards[label] += count;
+    size += count;
   }
-  if (!exists) // add new card if doesn't yet exist in hand
+  else
   {
-    cards.push_back(Card{count, label});
+    cards[label] = count;
+    size += count;
   }
-  return cards;
 }
 
-vector<Card> Hand::RemoveCard(int count, string label)
+void Hand::RemoveCard(int count, string label)
 {
-  for (int i = 0; i < sizeof(cards); i++)
+  auto card = cards.find(label);
+  if (card != cards.end())
   {
-    if (cards[i].label == label)
+    if (card->second <= count)
     {
-      if (count >= cards[i].count)
-      { // remove from array if count exceeds current count in hand
-        cards.erase(cards.begin() + i);
-      }
-      else
-      {
-        cards[i].count -= count;
-      }
+      size -= card->second; // remove only the remaining counts not more
+      cards.erase(card);
+    }
+    else
+    {
+      card->second -= count;
+      size -= count;
     }
   }
-  return cards;
 }
 
-vector<Card> Hand::GetHand()
+unordered_map<string, int> Hand::GetHand()
 {
   return cards;
 };

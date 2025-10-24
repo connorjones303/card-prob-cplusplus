@@ -1,11 +1,6 @@
 #include "prob.h"
 
-double GetHandOdds(int allHandCombinations, int oneHandCombination)
-{
-  return oneHandCombination / allHandCombinations;
-}
-
-int Factorial(int integer, int stopInt = 1) // stop int is exclusive number to stop the factorial multiplying at
+int Prob::Factorial(int integer, int stopInt = 1) // stop int is exclusive number to stop the factorial multiplying at
 {
   int factorialVal = 1;
   if (stopInt >= integer)
@@ -19,7 +14,7 @@ int Factorial(int integer, int stopInt = 1) // stop int is exclusive number to s
   return factorialVal;
 }
 
-int Combination(int n, int k)
+int Prob::Combination(int n, int k)
 {
   int combinations = Factorial(n, (n - k)) / Factorial(k);
   // uses optimized combination function that cancels unneeded terms
