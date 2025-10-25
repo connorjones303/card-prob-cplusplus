@@ -3,10 +3,18 @@
 #include <iostream>
 using namespace std;
 
-Hand::Hand(int startSize, string label)
+Hand::Hand(string label) : label(label), size(0)
 {
-  cards[label] = startSize;
-  size = startSize;
+  // empty hand with no cards in the unordered map
+}
+
+Hand::Hand(string label, unordered_map<string, int> handCards) : label(label), cards(handCards)
+{
+  size = 0;
+  for (auto &elem : handCards)
+  {
+    elem.second += size; // add to size of hand for each count of each count of each card in hand
+  }
 }
 
 int Hand::GetSize()
@@ -21,7 +29,7 @@ void Hand::PrintHand()
     cout << "label: " << elem.first << " | count: " << elem.second << endl;
   }
 }
-void Hand::AddCard(int count, string label) // TODO: how will we handle adding a card that doesn't exist yet in deck?
+void Hand::AddCard(int count, string label) // TODO: how will we handle adding a card to a hand that doesn't exist yet in deck?
 {
   unordered_map<string, int>::iterator card = cards.find(label);
   if (card != cards.end())

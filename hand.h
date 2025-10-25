@@ -1,4 +1,3 @@
-#include "card.h"
 #include <vector>
 #include <unordered_map>
 #include <string>
@@ -7,7 +6,8 @@ using namespace std;
 class Hand
 {
 public:
-  Hand(int size, string label);
+  Hand(string handLabel);
+  Hand(string handLabel, unordered_map<string, int> handCards);
   int GetSize();
   unordered_map<string, int> GetHand();
   void AddCard(int count, string label);

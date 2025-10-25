@@ -1,5 +1,4 @@
 #include "hand.h"
-#include "card.h"
 #include <unordered_map>
 #include <vector>
 using namespace std;
@@ -7,17 +6,21 @@ using namespace std;
 class Deck
 {
 public:
-  double GetOddsFromHand(vector<Card> hand);
-  Card GetCard(string name);
-  Card RemoveCard(string name);
-  vector<Hand> GetHands();
-  vector<Hand> AddHand(int count, string label);
-  vector<Hand> RemoveHand(int count, string label); // handles removing completely if count goes zeros
-  void PrintDeck();
+  Deck(string deckName);
+  double GetOddsFromHand(unordered_map<string, int> hand);
+  void RemoveCard(int count, string name);
+  unordered_map<string, Hand> GetHands();
+  unordered_map<string, int> GetCards();
+  void AddHand(string label);
+  void RemoveHand(string label);
+  void AddCard(int count, string label);
+  void RemoveCard(int count, string label);
+  void PrintDeckCards();
+  void PrintDeckHands();
 
 private:
   unordered_map<string, int> cards;
+  unordered_map<string, Hand> hands;
   int size;
-  vector<Hand> hands;
   string label;
 };

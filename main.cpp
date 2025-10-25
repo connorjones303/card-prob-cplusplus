@@ -2,18 +2,17 @@
 #include <string>
 #include "deck.h"
 #include "hand.h"
-#include "card.h"
 using namespace std;
 
 int main()
 {
-  string input;
+  string mode;
 
-  while (input != "qw")
+  while (mode != "qw")
   {
     cout << "type input:" << endl;
-    cin >> input;
-    cout << input << endl;
+    cin >> mode;
+    cout << mode << endl;
   }
 
   return 0;
