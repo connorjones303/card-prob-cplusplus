@@ -24,8 +24,18 @@ bool App::ValidateCommand()
     if (tokens.size() < 2)
     {
       cout << "Error: Missing deck name\n";
-      cout << "Usage: d <name>\n";
+      cout << "Usage: d [-rm] <name>\n";
       return false;
+    }
+
+    if (tokens[1] == "-rm")
+    {
+      if (tokens.size() < 3)
+      {
+        cout << "Error: Missing deck name after -rm\n";
+        cout << "Usage: d -rm <name>\n";
+        return false;
+      }
     }
     return true;
   }
@@ -185,8 +195,31 @@ bool App::ProcessCommand()
 
   if (firstArg == "d")
   {
-    activeDeckLabel = tokens[1];
-    return 1;
+    if (tokens[1] == "-rm")
+    {
+      string deckToDelete = tokens[2];
+
+      if (deckToDelete == activeDeckLabel && decks.size() == 1)
+      {
+        cout << "Error: Cannot delete the last remaining deck\n";
+        return 1;
+      }
+
+      decks.erase(deckToDelete);
+
+      // If deleting the active deck, switch to another one
+      if (deckToDelete == activeDeckLabel && !decks.empty())
+      {
+        activeDeckLabel = decks.begin()->first;
+      }
+
+      return 1;
+    }
+    else
+    {
+      activeDeckLabel = tokens[1];
+      return 1;
+    }
   }
 
   if (firstArg == "h")
@@ -254,10 +287,11 @@ bool App::ProcessCommand()
 void App::DisplayHelp()
 {
   cout << "Commands:\n\n"
-       << "d <name>\n"
+       << "d [-rm] <name>\n"
        << "  Change active deck\n"
        << "  Arguments:\n"
        << "    name - Deck name (creates new if doesn't exist)\n\n"
+       << "    -rm - deletes Deck at deck name\n\n"
 
        << "-h\n"
        << "  Display help\n\n"

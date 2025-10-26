@@ -115,11 +115,13 @@ void Deck::PrintDeckCards()
 {
   if (cards.empty())
   {
-    cout << "No cards exist in the deck" << endl;
+    cout << endl
+         << "No cards exist in the deck" << endl;
   }
   else
   {
-    cout << "Deck Cards:\n";
+    cout << endl
+         << "Deck Cards:\n";
     for (auto &elem : cards)
     {
       cout << "label: " << elem.first << " | count: " << elem.second << endl;
@@ -134,7 +136,8 @@ void Deck::PrintDeckHands()
   }
   for (auto &elem : hands)
   {
-    cout << "hand label: " << elem.first << endl;
+    cout << endl
+         << "hand label: " << elem.first << endl;
     elem.second.PrintHand();
     double odds = GetOddsFromHand(elem.second);
     cout << "probability: " << fixed << setprecision(2) << odds * 100 << "%" << endl;

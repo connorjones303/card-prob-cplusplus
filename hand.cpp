@@ -16,7 +16,8 @@ void Hand::PrintHand()
 {
   for (auto &elem : cards)
   {
-    cout << "label: " << elem.first << " | count: " << elem.second << endl;
+    cout << endl
+         << "label: " << elem.first << " | count: " << elem.second << endl;
   }
 }
 
