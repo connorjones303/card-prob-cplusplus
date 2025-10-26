@@ -2,19 +2,19 @@
 #include "hand.h"
 #include "parser.h"
 #include <unordered_map>
+#include <vector>
 
 class App
 {
 public:
   App();
-  void EditDeck();
-  void EditHand();
-  void ViewDeck();
-  void ChangeActiveDeck();
   void DisplayHelp();
+  bool ProcessCommand();
+  void PromptCommand();
 
 private:
   unordered_map<string, Deck> decks;
   string activeDeckLabel;
   Parser parser;
+  bool ValidateCommand();
 };

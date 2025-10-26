@@ -5,8 +5,6 @@ using namespace std;
 
 Parser::Parser()
 {
-  cout << "Enter Command: ";
-  getline(cin, inputStream);
 }
 
 vector<string> Parser::UpdateTokens()

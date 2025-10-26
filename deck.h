@@ -7,13 +7,13 @@ class Deck
 public:
   Deck(string deckName);
   double GetOddsFromHand(unordered_map<string, int> hand);
-  void RemoveCard(int count, string name);
   unordered_map<string, Hand> GetHands();
   unordered_map<string, int> GetCards();
-  void AddHand(string label);
+  void AddHand(string label, unordered_map<string, int> handCards = {});
   void RemoveHand(string label);
   void AddCard(int count, string label);
   void RemoveCard(int count, string label);
+  void ModCard(int count, string label);
   void PrintDeckCards();
   void PrintDeckHands();
 

@@ -84,13 +84,16 @@ void Deck::RemoveHand(string handLabel)
   }
 }
 
-void Deck::AddHand(string handLabel)
+void Deck::AddHand(string handLabel, unordered_map<string, int> handCards = {})
 {
-  unordered_map<string, int>::iterator card = cards.find(handLabel);
-  if (card == cards.end())
+  unordered_map<string, int>::iterator hand = cards.find(handLabel);
+  if (hand == cards.end())
   {
     // make new card if not exists
-    hands[label] = Hand(handLabel);
+    hands[handLabel] = Hand(handLabel, handCards);
+  }
+  else
+  {
   }
 }
 
@@ -117,5 +120,15 @@ void Deck::PrintDeckHands()
   {
     cout << "hand label: " << elem.first << endl;
     elem.second.PrintHand();
+    cout << "probability: " << this->GetOddsFromHand(elem.second.GetHand());
+  }
+}
+
+void Deck::ModCard(int count, string label)
+{
+  cards[label] += count;
+  if (cards[label] <= 0)
+  {
+    cards.erase(label);
   }
 }
