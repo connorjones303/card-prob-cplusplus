@@ -4,6 +4,9 @@
 
 App::App()
 {
+  decks["unnamed deck"] = Deck("unnamed deck");
+  ;
+  activeDeckLabel = "unnamed deck";
 }
 bool App::ValidateCommand()
 {
@@ -144,14 +147,14 @@ bool App::ValidateCommand()
     if (tokens.size() < 2)
     {
       cout << "Error: Missing view type\n";
-      cout << "Usage: v <c|h>\n";
+      cout << "Usage: v <c|h|d>\n";
       return false;
     }
 
-    if (tokens[1] != "c" && tokens[1] != "h")
+    if (tokens[1] != "c" && tokens[1] != "h" && tokens[1] != "d")
     {
       cout << "Error: Invalid view type '" << tokens[1] << "'\n";
-      cout << "Usage: v <c|h>\n";
+      cout << "Usage: v <c|h|d>\n";
       return false;
     }
 
@@ -183,7 +186,6 @@ bool App::ProcessCommand()
   if (firstArg == "d")
   {
     activeDeckLabel = tokens[1];
-    activeDeck = decks[activeDeckLabel];
     return 1;
   }
 
@@ -236,7 +238,14 @@ bool App::ProcessCommand()
     }
     if (tokens[1] == "d")
     {
+      cout << "All Decks:" << endl;
+      for (auto &elem : decks)
+      {
+        cout << "Deck: " << elem.first << " | Deck Size: " << elem.second.GetSize()
+             << " | # Of Hands: " << elem.second.GetHands().size() << endl;
+      }
       cout << "Current Deck: " << activeDeckLabel << endl;
+
       return 1;
     }
   }
@@ -274,12 +283,14 @@ void App::DisplayHelp()
        << "    c \"Queen of Diamonds\" 3\n"
        << "    c \"Queen of Diamonds\" -2\n\n"
 
-       << "v <c|h>\n"
+       << "v <c|h|d>\n"
        << "  View deck contents\n"
        << "  Arguments:\n"
        << "    c - View all cards in deck\n"
        << "    h - View all hands in deck\n"
+       << "    d - View all decks\n"
        << "  Examples:\n"
        << "    v c\n"
-       << "    v h\n";
+       << "    v h\n"
+       << "    v d\n";
 }
