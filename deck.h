@@ -1,3 +1,4 @@
+#pragma once
 #include "hand.h"
 #include <unordered_map>
 using namespace std;
@@ -5,8 +6,9 @@ using namespace std;
 class Deck
 {
 public:
+  Deck();
   Deck(string deckName);
-  double GetOddsFromHand(unordered_map<string, int> hand);
+  double GetOddsFromHand(Hand hand);
   unordered_map<string, Hand> GetHands();
   unordered_map<string, int> GetCards();
   void AddHand(string label, unordered_map<string, int> handCards = {});
@@ -16,6 +18,7 @@ public:
   void ModCard(int count, string label);
   void PrintDeckCards();
   void PrintDeckHands();
+  int GetSize();
 
 private:
   unordered_map<string, int> cards;

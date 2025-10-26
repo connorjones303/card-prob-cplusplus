@@ -1,5 +1,5 @@
+#pragma once
 #include "deck.h"
-#include "hand.h"
 #include "parser.h"
 #include <unordered_map>
 #include <vector>

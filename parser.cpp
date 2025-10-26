@@ -12,13 +12,42 @@ vector<string> Parser::UpdateTokens()
   cout << "Enter Command: ";
   string inputLine;
   getline(cin, inputLine);
-  istringstream iss(inputLine);
-  string token;
+
   vector<string> inputTokens;
-  while (iss >> token)
+  string token;
+  bool inQuotes = false;
+
+  for (int i = 0; i < inputLine.length(); i++)
   {
-    inputTokens.push_back(token); // Read word by word whitespace-separated
+    char c = inputLine[i];
+
+    if (c == '"')
+    {
+      inQuotes = !inQuotes; // toggle inside quote state
+      // don't add the quote character itself
+    }
+    else if (c == ' ' && !inQuotes)
+    {
+      // space outside quotes, end of token
+      if (!token.empty())
+      {
+        inputTokens.push_back(token);
+        token.clear();
+      }
+    }
+    else
+    {
+      // regular char or space inside quotes
+      token += c;
+    }
   }
+
+  // don't forget the last token
+  if (!token.empty())
+  {
+    inputTokens.push_back(token);
+  }
+
   tokens = inputTokens;
   return inputTokens;
 }

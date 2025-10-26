@@ -3,9 +3,9 @@ using namespace std;
 
 int main()
 {
+  App app = App();
   while (true)
   {
-    App app = App();
     app.PromptCommand();
     app.ProcessCommand();
   }

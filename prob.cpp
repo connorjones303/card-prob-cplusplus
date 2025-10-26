@@ -1,4 +1,6 @@
 #include "prob.h"
+#include <iostream>
+using namespace std;
 
 int Prob::Factorial(int integer, int stopInt = 1) // stop int is exclusive number to stop the factorial multiplying at
 {
@@ -7,9 +9,9 @@ int Prob::Factorial(int integer, int stopInt = 1) // stop int is exclusive numbe
   {
     return 1;
   }
-  for (integer; integer > stopInt; integer--)
+  for (int i = integer; i > stopInt; i--)
   {
-    factorialVal *= integer;
+    factorialVal *= i;
   }
   return factorialVal;
 }

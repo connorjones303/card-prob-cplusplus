@@ -105,7 +105,7 @@ bool App::ValidateCommand()
     }
 
     // Validate alternating string/int pattern
-    for (int i = 2; i < tokens.size(); i += 2)
+    for (int i = 1; i < tokens.size(); i += 2)
     {
       if (i + 1 >= tokens.size())
         break;
@@ -178,46 +178,48 @@ bool App::ProcessCommand()
   {
     return 0;
   }
-  Deck activeDeck = decks[activeDeckLabel];
+  Deck &activeDeck = decks[activeDeckLabel];
 
   if (firstArg == "d")
   {
     activeDeckLabel = tokens[1];
+    activeDeck = decks[activeDeckLabel];
+    return 1;
   }
 
   if (firstArg == "h")
   {
     string handLabel = tokens[1];
-    auto hands = activeDeck.GetHands();
-    Hand hand = hands[handLabel];
     if (tokens[2] == "-rm")
     {
       activeDeck.RemoveHand(tokens[1]);
       return 1;
     }
-    unordered_map<string, int> newHand;
+    unordered_map<string, int> handCards;
     for (int i = 2; i < tokens.size(); i += 2)
     {
       string label = tokens[i];
       int count = stoi(tokens[i + 1]);
-      newHand[label] = count;
+      handCards[label] = count;
     }
-    hand.ModHand(newHand);
+    activeDeck.AddHand(handLabel, handCards);
     return 1;
   }
   if (firstArg == "-h")
   {
     DisplayHelp();
+    return 1;
   }
 
   if (firstArg == "c")
   {
-    for (int i = 2; i < tokens.size(); i += 2)
+    for (int i = 1; i < tokens.size(); i += 2)
     {
       string cardLabel = tokens[i];
       int count = stoi(tokens[i + 1]);
       activeDeck.ModCard(count, cardLabel);
     }
+    return 1;
   }
 
   if (firstArg == "v")
@@ -225,12 +227,20 @@ bool App::ProcessCommand()
     if (tokens[1] == "c")
     {
       activeDeck.PrintDeckCards();
+      return 1;
     }
     if (tokens[1] == "h")
     {
       activeDeck.PrintDeckHands();
+      return 1;
+    }
+    if (tokens[1] == "d")
+    {
+      cout << "Current Deck: " << activeDeckLabel << endl;
+      return 1;
     }
   }
+  return 0; // return false if not caught in other conditions
 }
 void App::DisplayHelp()
 {

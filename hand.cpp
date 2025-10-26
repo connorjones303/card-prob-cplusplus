@@ -14,7 +14,6 @@ Hand::Hand(string label, unordered_map<string, int> handCards) : label(label), c
 
 void Hand::PrintHand()
 {
-  cout << "PRINTING HAND: " << label << endl;
   for (auto &elem : cards)
   {
     cout << "label: " << elem.first << " | count: " << elem.second << endl;
@@ -26,7 +25,7 @@ unordered_map<string, int> Hand::GetHand()
   return cards;
 };
 
-void Hand::ModHand(unordered_map<string, int> newCards)
+void Hand::ModHand(unordered_map<string, int> newCards) // changes card counts, and deletes cards if needed
 {
   for (auto &elem : newCards)
   {
@@ -38,4 +37,14 @@ void Hand::ModHand(unordered_map<string, int> newCards)
       cards.erase(cardLabel);
     }
   }
+}
+
+int Hand::GetSize()
+{
+  int size = 0;
+  for (const auto &elem : cards)
+  {
+    size += elem.second;
+  }
+  return size;
 }
