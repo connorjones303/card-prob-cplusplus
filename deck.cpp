@@ -132,7 +132,8 @@ void Deck::PrintDeckHands()
 {
   if (hands.empty())
   {
-    cout << "No Hands exist for the deck" << endl;
+    cout << endl
+         << "No Hands exist for the deck" << endl;
   }
   for (auto &elem : hands)
   {

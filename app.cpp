@@ -271,7 +271,8 @@ bool App::ProcessCommand()
     }
     if (tokens[1] == "d")
     {
-      cout << "All Decks:" << endl;
+      cout << endl
+           << "All Decks:" << endl;
       for (auto &elem : decks)
       {
         cout << "Deck: " << elem.first << " | Deck Size: " << elem.second.GetSize()
